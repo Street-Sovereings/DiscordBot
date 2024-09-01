@@ -1,4 +1,5 @@
 import { registeredCommands } from "./commands/register";
+import handleInteractionCreate from './commands/interaction';
 
 const { Client, GatewayIntentBits } = require('discord.js');
 require('dotenv').config();
@@ -30,11 +31,7 @@ client.on('ready', async () => {
 });
 
 client.on('interactionCreate', async (interaction: any) => {
-  if (!interaction.isChatInputCommand()) return;
-
-  if (interaction.commandName === 'ping') {
-    await interaction.reply('Pong!');
-  }
+  handleInteractionCreate(client, interaction);
 });
 
 client.login(process.env.TOKEN);
