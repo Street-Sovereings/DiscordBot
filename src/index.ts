@@ -1,3 +1,5 @@
+import { registeredCommands } from "./commands/register";
+
 const { Client, GatewayIntentBits } = require('discord.js');
 require('dotenv').config();
 const { REST } = require('@discordjs/rest');
@@ -18,12 +20,7 @@ client.on('ready', async () => {
 
   try {
     await rest.put(Routes.applicationGuildCommands(client.user.id, process.env.GUILD_ID), {
-      body: [
-        {
-          name: 'ping',
-          description: 'Replies with Pong!',
-        },
-      ],
+      body: registeredCommands,
     });
 
     console.log('Successfully registered slash command');
